@@ -1,14 +1,16 @@
 import express from 'express'
+import router from './routes/index.js'
+import { config } from './config/index.js'
+import helmet from 'helmet'
+import cors from 'cors'
 
 const app = express()
+app.use(express.json())
+app.use(helmet())
+app.use(cors())
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Server is up',
-        timestamp: Date.now().toString()
-    })
-})
+app.use('/api/v1', router)
 
-app.listen(3000, () => {
-    console.log(`Server is running on port 3000`)
+app.listen(config.PORT, () => {
+    console.log(`Server is running on port ${config.PORT}`)
 })
