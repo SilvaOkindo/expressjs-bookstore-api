@@ -1,5 +1,6 @@
 import { prisma } from "../../lib/prisma.js";
 import { hashPassword } from "../../utils/hash-password.js";
+import { logger } from "../../utils/logger.js";
 
 export const registerUserService = async (
   firstName,
@@ -41,7 +42,7 @@ export const registerUserService = async (
     if(err === 'P2002') {
         throw new Error("USER_ALREADY_EXISTS");
     }
-    console.error("error registering user:", err);
+    //logger.error("error registering user:", err);
     throw err
   }
 };

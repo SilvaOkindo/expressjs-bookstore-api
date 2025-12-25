@@ -6,7 +6,6 @@ export const validationError = (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       success: false,
-      message: "ValidationError",
       code: "ValidationError",
       errors: errors.mapped(),
     });
