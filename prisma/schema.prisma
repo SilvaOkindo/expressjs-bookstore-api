@@ -57,8 +57,17 @@ model User {
   password String
   role ROLE @default(USER)
   books Book[]
+  refreshTokens RefreshToken[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
+}
+
+model RefreshToken {
+  id Int @id @default(autoincrement())
+  token String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  createdAt DateTime @default(now())
 }
 
 
