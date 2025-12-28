@@ -3,6 +3,9 @@ import { registerUser } from "../controllers/v1/auth/register-user.js";
 import { body } from "express-validator";
 import { validationError } from "../middleware/validation-error.js";
 import { loginUser } from "../controllers/v1/auth/login.js";
+import { authenticate } from "../middleware/authentication.js";
+import { checkAuth } from "../controllers/v1/auth/check-auth.js";
+import { authorize } from "../middleware/authorize.js";
 
 const router = express.Router();
 
@@ -45,5 +48,7 @@ router.post(
   validationError,
   loginUser
 );
+
+router.get('/check-auth', authenticate, authorize(['ADMIN', 'AUTHOR', 'USER', 'PUBLISHER']), checkAuth)
 
 export default router;
