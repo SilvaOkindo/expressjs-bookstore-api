@@ -2,7 +2,6 @@ import { prisma } from "../../lib/prisma.js";
 import {generateRefreshToken, generateToken} from '../../utils/jwt.js'
 import {comparePasswords} from '../../utils/compare-passwords.js'
 
-// todo: update imports, save refresh token to db, add cookie handling
 
 export const loginUserService = async (email, password) => {
   try {

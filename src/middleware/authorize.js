@@ -1,6 +1,5 @@
 import { logger } from "../utils/logger.js"
 
-const AUTHROLES = ['admin', 'author', 'user', 'publisher']
 
 export const authorize = (roles) => {
     return (req, res, next) => {
@@ -12,12 +11,12 @@ export const authorize = (roles) => {
 
             if(!user) {
                 return res.status(403).json({
-                    message: "You are not logged in"
+                    message: "Access denied. Authorization needed"
                 })
             }
 
             if(!roles.includes(user.role)) {
-                logger.warn("User trying to access anauthorized resources")
+                logger.warn("User trying to access unauthorized resources")
                 return res.status(403).json({
                     message: "You are not authorized to access this resource"
                 })
