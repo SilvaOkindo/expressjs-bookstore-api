@@ -1,6 +1,7 @@
 import { prisma } from "../../lib/prisma.js";
 import {generateRefreshToken, generateToken} from '../../utils/jwt.js'
 import {comparePasswords} from '../../utils/compare-passwords.js'
+import { logger } from '../../utils/logger.js'
 
 
 export const loginUserService = async (email, password) => {

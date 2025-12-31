@@ -5,7 +5,7 @@ export const authorize = (roles) => {
     return (req, res, next) => {
         const user = req.user
 
-        console.log('user', user)
+        //console.log('user', user)
 
         try {
 
