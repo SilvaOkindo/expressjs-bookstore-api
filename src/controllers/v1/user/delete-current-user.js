@@ -1,5 +1,5 @@
 import { logger } from '../../../utils/logger.js'
-import { deleteCurrentUserService } from '../../../services/user/delete-current-user.service.js'
+import { deleteCurrentUserService } from '../../../services/user/delete-user.service.js'
 
 export const deleteCurrentUser = async (req, res) => {
     const userId = req.user.id

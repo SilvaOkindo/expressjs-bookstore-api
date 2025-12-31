@@ -1,11 +1,14 @@
 import { getCurrentUserService } from "../../../services/user/get-user.service.js";
 import { logger } from "../../../utils/logger.js";
 
-export const getCurrentUser = async (req, res) => {
-  const { id } = req.user;
+export const getUserById = async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const user = await getCurrentUserService(id);
+
+    const userId = parseInt(id)
+
+    const user = await getCurrentUserService(userId);
 
     return res.status(200).json(user);
   } catch (err) {
