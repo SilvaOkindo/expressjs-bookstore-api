@@ -5,9 +5,10 @@ import { authorize } from "../middleware/authorize.js";
 import { deleteCurrentUser } from "../controllers/v1/user/delete-current-user.js";
 import { getUserById } from "../controllers/v1/user/get-user-by-id.js";
 import { deleteUserById } from "../controllers/v1/user/delete-user-by-id.js";
-import { param, query } from "express-validator";
+import { param, query, body } from "express-validator";
 import { validateError } from "../middleware/error-validation.js";
 import { getAllUsers } from "../controllers/v1/user/get-all-users.js";
+import { updateUser } from "../controllers/v1/user/update-user.js";
 
 const router = express.Router();
 
@@ -48,6 +49,28 @@ router.get(
   authorize(["ADMIN", "AUTHOR", "USER", "PUBLISHER"]),
   validateError,
   getUserById
+);
+
+router.put(
+  "/",
+  body("firstName")
+    .optional()
+    .isString()
+    .withMessage("firstName should be a string"),
+  body("lastName")
+    .optional()
+    .isString()
+    .withMessage("lastName should be a string"),
+  body("email")
+    .optional()
+    .isString()
+    .withMessage("email should be a string")
+    .isEmail()
+    .withMessage('Invalid email'),
+  authenticate,
+  authorize(["ADMIN", "AUTHOR", "USER", "PUBLISHER"]),
+  validateError,
+  updateUser
 );
 
 router.delete(
