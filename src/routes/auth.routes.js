@@ -6,6 +6,7 @@ import { loginUser } from "../controllers/v1/auth/login.js";
 import { authenticate } from "../middleware/authentication.js";
 import { checkAuth } from "../controllers/v1/auth/check-auth.js";
 import { authorize } from "../middleware/authorize.js";
+import { changePassword } from "../controllers/v1/auth/change-password.js";
 
 const router = express.Router();
 
@@ -49,6 +50,43 @@ router.post(
   loginUser
 );
 
-router.get('/check-auth', authenticate, authorize(['ADMIN', 'AUTHOR', 'USER', 'PUBLISHER']), checkAuth)
+router.post(
+  "/change-password",
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password cannot be empty")
+    .isString()
+    .withMessage("Password must be a string")
+    .isLength({ min: 6 })
+    .withMessage("Password cannot be less than 6 characters"),
+  body("newPassword")
+    .trim()
+    .notEmpty()
+    .withMessage("new password cannot be empty")
+    .isString()
+    .withMessage("new password must be a string")
+    .isLength({ min: 6 })
+    .withMessage("new password cannot be less than 6 characters"),
+  body("confirmPassword")
+    .trim()
+    .notEmpty()
+    .withMessage("confim password cannot be empty")
+    .isString()
+    .withMessage("confirm password must be a string")
+    .isLength({ min: 6 })
+    .withMessage("confirm password cannot be less than 6 characters"),
+  authenticate,
+  authorize(["ADMIN", "AUTHOR", "USER", "PUBLISHER"]),
+  validationError,
+  changePassword
+);
+
+router.get(
+  "/check-auth",
+  authenticate,
+  authorize(["ADMIN", "AUTHOR", "USER", "PUBLISHER"]),
+  checkAuth
+);
 
 export default router;
