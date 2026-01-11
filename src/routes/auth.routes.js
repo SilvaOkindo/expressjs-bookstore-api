@@ -50,7 +50,7 @@ router.post(
   loginUser
 );
 
-router.post(
+router.patch(
   "/change-password",
   body("password")
     .trim()

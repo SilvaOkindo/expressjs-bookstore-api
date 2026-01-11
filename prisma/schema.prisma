@@ -58,6 +58,7 @@ model User {
   role ROLE @default(USER)
   books Book[]
   refreshTokens RefreshToken[]
+  authorApplication AuthorApplication?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 }
@@ -71,11 +72,27 @@ model RefreshToken {
 }
 
 
+model AuthorApplication {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int @unique
+  status AUTHOR_STATUS @default(PENDING)
+  motivation String?
+  reviewed_at DateTime?
+  appliedAt DateTime @default(now())
+}
+
+
 enum ROLE {
   ADMIN
   USER 
   AUTHOR
 }
 
+enum AUTHOR_STATUS {
+  PENDING
+  APPROVED
+  REJECTED
+}
 
 
