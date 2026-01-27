@@ -44,7 +44,7 @@ model Publisher {
 
 model Category {
   id Int @id @default(autoincrement())
-  name String
+  name String @unique()
   description String
   books Book[]
 }

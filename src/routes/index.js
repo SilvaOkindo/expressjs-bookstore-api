@@ -3,6 +3,7 @@ import authRoutes from './auth.routes.js'
 import userRoutes from './user.routes.js'
 import authorRoutes from './author.routes.js'
 import adminRoutes from './admin.routes.js'
+import categoryRoutes from './category.routes.js'
 
 const router = express.Router()
 
@@ -21,6 +22,7 @@ router.use('/auth', authRoutes)
 router.use('/user', userRoutes)
 router.use('/author', authorRoutes)
 router.use('/admin', adminRoutes)
+router.use('/categories', categoryRoutes)
 
 
 export default router
